@@ -1,14 +1,25 @@
 
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
-import CTA from "@/components/CTA";
+import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
+import SchoolSection from '@/components/SchoolSection';
+import EventsSection from '@/components/EventsSection';
+import Footer from '@/components/Footer';
 
 const Index = () => {
+  console.log("Index page is rendering");
+  console.log("All components imported successfully");
+  
   return (
-    <div className="min-h-screen">
-      <Hero />
-      <Features />
-      <CTA />
+    <div className="min-h-screen bg-background overflow-x-hidden" style={{ scrollBehavior: 'smooth' }}>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <SchoolSection />
+        <EventsSection />
+      </main>
+      <Footer />
     </div>
   );
 };
