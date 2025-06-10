@@ -9,7 +9,138 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          author: string
+          category: string | null
+          content: string
+          created_at: string
+          excerpt: string | null
+          featured_image_url: string | null
+          id: string
+          instagram_post_url: string | null
+          published: boolean | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author: string
+          category?: string | null
+          content: string
+          created_at?: string
+          excerpt?: string | null
+          featured_image_url?: string | null
+          id?: string
+          instagram_post_url?: string | null
+          published?: boolean | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string
+          category?: string | null
+          content?: string
+          created_at?: string
+          excerpt?: string | null
+          featured_image_url?: string | null
+          id?: string
+          instagram_post_url?: string | null
+          published?: boolean | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string
+          current_participants: number | null
+          description: string
+          event_date: string | null
+          event_type: string
+          featured_image_url: string | null
+          id: string
+          max_participants: number | null
+          registration_deadline: string | null
+          registration_link: string | null
+          results_url: string | null
+          status: string | null
+          title: string
+          updated_at: string
+          venue: string | null
+          winners: Json | null
+        }
+        Insert: {
+          created_at?: string
+          current_participants?: number | null
+          description: string
+          event_date?: string | null
+          event_type: string
+          featured_image_url?: string | null
+          id?: string
+          max_participants?: number | null
+          registration_deadline?: string | null
+          registration_link?: string | null
+          results_url?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+          venue?: string | null
+          winners?: Json | null
+        }
+        Update: {
+          created_at?: string
+          current_participants?: number | null
+          description?: string
+          event_date?: string | null
+          event_type?: string
+          featured_image_url?: string | null
+          id?: string
+          max_participants?: number | null
+          registration_deadline?: string | null
+          registration_link?: string | null
+          results_url?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+          venue?: string | null
+          winners?: Json | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          approved: boolean | null
+          created_at: string
+          email: string | null
+          feedback: string
+          id: string
+          name: string
+          position: string | null
+          rating: number | null
+        }
+        Insert: {
+          approved?: boolean | null
+          created_at?: string
+          email?: string | null
+          feedback: string
+          id?: string
+          name: string
+          position?: string | null
+          rating?: number | null
+        }
+        Update: {
+          approved?: boolean | null
+          created_at?: string
+          email?: string | null
+          feedback?: string
+          id?: string
+          name?: string
+          position?: string | null
+          rating?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

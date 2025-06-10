@@ -10,6 +10,8 @@ import LoadingScreen from "@/components/LoadingScreen";
 import Index from "./pages/Index";
 import Members from "./pages/Members";
 import Events from "./pages/Events";
+import Blog from "./pages/Blog";
+import BlogForm from "./pages/BlogForm";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
