@@ -92,9 +92,8 @@ const EventsSection = () => {
             ref={titleRef}
             className={`text-center mb-16 scroll-fade-in ${titleVisible ? 'animate' : ''}`}
             >
-                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
+                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
                     <span className="text-cyber relative z-10">Our Events</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110 opacity-100 pointer-events-none"></div>
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
                 <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">
@@ -191,9 +190,8 @@ const EventsSection = () => {
             ref={blogRef}
             className={`text-center mb-16 scroll-fade-in ${blogVisible ? 'animate' : ''}`}
             >
-                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
+                <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
                     <span className="text-cyber relative z-10">Latest from Our Blogs</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110 opacity-100 pointer-events-none"></div>
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
                     <p className="text-lg font-fira text-muted-foreground max-w-2xl mx-auto">

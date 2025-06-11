@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -7,11 +6,9 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import SkillsDisplay from '@/components/SkillsDisplay';
 import Navbar from '@/components/Navbar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-// import Footer from '@/components/Footer';
 
 const Members = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
-  const [statsRef, statsVisible] = useScrollAnimation();
   const [membersHeaderRef, membersHeaderVisible] = useScrollAnimation();
   const [membersRef, membersVisible] = useScrollAnimation();
   const [heroStatsRef, heroStatsVisible] = useScrollAnimation();
@@ -25,7 +22,7 @@ const Members = () => {
   };
 
   const scrollToNextSection = () => {
-    const aboutSection = document.querySelector('#members-stats');
+    const aboutSection = document.querySelector('#members-section');
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -199,48 +196,9 @@ const Members = () => {
         </button>
       </section>
 
-      {/* Stats Section */}
-      <section id="members-stats" className="py-20">
+      {/* Members Section */}
+      <section id="members-section" className="py-20">
         <div className="container mx-auto px-4">
-          <div 
-            ref={statsRef}
-            className={`grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20 stagger-children ${statsVisible ? 'animate' : ''}`}
-          >
-            <Card className="bg-card/50 cyber-border hover:glow-green transition-all duration-300">
-              <CardHeader className="text-center">
-                <div className="flex items-center justify-center mb-4">
-                  <Users className="text-primary" size={48} />
-                </div>
-                <CardTitle className="text-3xl font-orbitron font-bold text-primary">
-                  {members.length}
-                </CardTitle>
-                <p className="text-muted-foreground font-fira">Core Members</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center font-fira text-sm text-foreground/80">
-                  Dedicated individuals working together to push the boundaries of technology and innovation.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card/50 cyber-border hover:glow-blue transition-all duration-300">
-              <CardHeader className="text-center">
-                <div className="flex items-center justify-center mb-4">
-                  <Calendar className="text-secondary" size={48} />
-                </div>
-                <CardTitle className="text-3xl font-orbitron font-bold text-secondary">
-                  5+
-                </CardTitle>
-                <p className="text-muted-foreground font-fira">Years of Legacy</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center font-fira text-sm text-foreground/80">
-                  Building a strong foundation of technological excellence and community engagement since our inception.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
           {/* Members Header */}
           <div 
             ref={membersHeaderRef}
@@ -326,8 +284,6 @@ const Members = () => {
           </div>
         </div>
       </section>
-
-{/*       <Footer /> */}
     </div>
   );
 };

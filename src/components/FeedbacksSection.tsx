@@ -23,7 +23,6 @@ const FeedbacksSection = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Function to get initials from name
   const getInitials = (name: string) => {
     return name
       .split(' ')
@@ -90,9 +89,8 @@ const FeedbacksSection = () => {
           animate={sectionVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative">
+          <h2 className="text-3xl md:text-5xl font-orbitron font-bold mb-4 relative heading-glow">
             <span className="text-cyber relative z-10">Community Feedbacks</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 blur-xl -z-10 scale-110 opacity-100 pointer-events-none"></div>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
           <p className="text-xl font-fira text-foreground/80 max-w-3xl mx-auto">
@@ -101,11 +99,11 @@ const FeedbacksSection = () => {
         </motion.div>
 
         {/* Feedbacks Grid */}
-        <div className="mb-12">
+        <div className="mb-12 flex justify-center">
           {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center">
               {[...Array(3)].map((_, i) => (
-                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 h-64">
+                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 h-64 w-full max-w-md">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-muted"></div>
                     <div className="flex-1">
@@ -129,7 +127,7 @@ const FeedbacksSection = () => {
             </div>
           ) : (
             <motion.div
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl w-full justify-items-center"
               initial={{ opacity: 0 }}
               animate={sectionVisible ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, staggerChildren: 0.1 }}
@@ -140,6 +138,7 @@ const FeedbacksSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={sectionVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="w-full max-w-md"
                 >
                   <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6 h-64 flex flex-col">
                     <div className="flex items-center gap-4 mb-4">
