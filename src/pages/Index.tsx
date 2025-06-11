@@ -4,9 +4,9 @@ import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import SchoolSection from '@/components/SchoolSection';
 import EventsSection from '@/components/EventsSection';
+import FeedbacksSection from '@/components/FeedbacksSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import FeedbackForm from '@/components/FeedbackForm';
-import Footer from '@/components/Footer';
+// import Footer from '@/components/Footer';
 
 const Index = () => {
   console.log("Index page is rendering");
@@ -21,9 +21,8 @@ const Index = () => {
         <SchoolSection />
         <EventsSection />
         <TestimonialsSection />
-        <FeedbackForm />
       </main>
-      <Footer />
+{/*       <Footer /> */}
     </div>
   );
 };
