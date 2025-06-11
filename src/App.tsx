@@ -13,7 +13,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import BlogAdmin from './pages/BlogAdmin';
 import ProtectedRoute from './components/ProtectedRoute';
 import Feedbacks from './pages/Feedbacks';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@transtack/react-query';
 import { Toaster } from '@/components/ui/sonner';
 import EventsAdmin from './pages/EventsAdmin';
 
