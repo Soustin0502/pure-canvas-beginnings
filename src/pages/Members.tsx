@@ -164,6 +164,11 @@ const Members = () => {
                 </CardTitle>
                 <p className="text-muted-foreground font-fira text-sm">Active Members</p>
               </CardHeader>
+              <CardContent>
+                <p className="text-center font-fira text-sm text-foreground/80">
+                  Dedicated individuals working together to push the boundaries of technology and innovation.
+                </p>
+              </CardContent>
             </Card>
 
             <Card className="bg-card/30 cyber-border hover:border-secondary/60 transition-all duration-300">
@@ -176,6 +181,11 @@ const Members = () => {
                 </CardTitle>
                 <p className="text-muted-foreground font-fira text-sm">Years Legacy</p>
               </CardHeader>
+              <CardContent>
+                <p className="text-center font-fira text-sm text-foreground/80">
+                  Building a strong foundation of technological excellence and community engagement since our inception.
+                </p>
+              </CardContent>
             </Card>
           </div>
         </div>
@@ -256,10 +266,14 @@ const Members = () => {
                 }}
               >
                 <div className="relative">
-                  <div className="w-full h-48 flex items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
-                    <Avatar className="w-32 h-32">
-                      <AvatarImage src={member.image} alt={member.name} className="object-cover" />
-                      <AvatarFallback className="bg-primary/20 text-primary font-bold text-xl">
+                  <div className="w-full h-64 overflow-hidden">
+                    <Avatar className="w-full h-full rounded-none">
+                      <AvatarImage 
+                        src={member.image} 
+                        alt={member.name} 
+                        className="object-cover w-full h-full member-image" 
+                      />
+                      <AvatarFallback className="bg-primary/20 text-primary font-bold text-2xl rounded-none w-full h-full flex items-center justify-center">
                         {getInitials(member.name)}
                       </AvatarFallback>
                     </Avatar>

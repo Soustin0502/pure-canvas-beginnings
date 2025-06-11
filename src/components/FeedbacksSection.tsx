@@ -105,7 +105,7 @@ const FeedbacksSection = () => {
           {loading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(3)].map((_, i) => (
-                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6">
+                <Card key={i} className="bg-card/50 cyber-border animate-pulse p-6 h-64">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-full bg-muted"></div>
                     <div className="flex-1">
@@ -141,17 +141,17 @@ const FeedbacksSection = () => {
                   animate={sectionVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6">
+                  <Card className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 p-6 h-64 flex flex-col">
                     <div className="flex items-center gap-4 mb-4">
-                      <Avatar className="w-12 h-12 bg-primary/20">
+                      <Avatar className="w-12 h-12 bg-primary/20 flex-shrink-0">
                         <AvatarFallback className="bg-primary/20 text-primary font-medium">
                           {getInitials(testimonial.name)}
                         </AvatarFallback>
                       </Avatar>
-                      <div className="flex-1">
-                        <h4 className="font-orbitron text-primary">{testimonial.name}</h4>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-orbitron text-primary truncate">{testimonial.name}</h4>
                         {testimonial.position && (
-                          <p className="text-sm text-muted-foreground font-fira">
+                          <p className="text-sm text-muted-foreground font-fira truncate">
                             {testimonial.position}
                           </p>
                         )}
@@ -162,7 +162,7 @@ const FeedbacksSection = () => {
                         )}
                       </div>
                     </div>
-                    <p className="text-foreground/80 font-fira text-sm leading-relaxed">
+                    <p className="text-foreground/80 font-fira text-sm leading-relaxed flex-1 overflow-hidden">
                       "{testimonial.feedback}"
                     </p>
                   </Card>

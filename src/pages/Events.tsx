@@ -147,6 +147,11 @@ const Events = () => {
                 </CardTitle>
                 <p className="text-muted-foreground font-fira text-sm">Upcoming Events</p>
               </CardHeader>
+              <CardContent>
+                <p className="text-center font-fira text-sm text-foreground/80">
+                  Exciting competitions and workshops planned for this year to challenge and inspire our community.
+                </p>
+              </CardContent>
             </Card>
 
             <Card className="bg-card/30 cyber-border hover:border-secondary/60 transition-all duration-300">
@@ -159,6 +164,11 @@ const Events = () => {
                 </CardTitle>
                 <p className="text-muted-foreground font-fira text-sm">Total Participants</p>
               </CardHeader>
+              <CardContent>
+                <p className="text-center font-fira text-sm text-foreground/80">
+                  Years of organizing memorable events that have shaped the tech community at our school.
+                </p>
+              </CardContent>
             </Card>
           </div>
         </div>
