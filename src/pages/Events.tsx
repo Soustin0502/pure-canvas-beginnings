@@ -33,7 +33,8 @@ const Events = () => {
       max_participants: 170,
       current_participants: 0,
       featured_image_url: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=300&fit=crop",
-      registration_link: null
+      registration_link: "https://forms.google.com/d/e/1FAIpQLSe_example_form_id/viewform",
+      brochure_link: "https://example.com/warp-intra-25-brochure.pdf"
     },
     {
       id: '2',
@@ -46,7 +47,8 @@ const Events = () => {
       max_participants: 170,
       current_participants: 0,
       featured_image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
-      registration_link: null
+      registration_link: "https://forms.google.com/d/e/1FAIpQLSe_example_form_id_2/viewform",
+      brochure_link: "https://example.com/warp-inter-25-brochure.pdf"
     }
   ];
 
@@ -62,7 +64,8 @@ const Events = () => {
       max_participants: 150,
       current_participants: 142,
       featured_image_url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
-      registration_link: null
+      registration_link: null,
+      brochure_link: "https://example.com/warp-intra-24-brochure.pdf"
     },
     {
       id: '4',
@@ -75,7 +78,8 @@ const Events = () => {
       max_participants: 130,
       current_participants: 128,
       featured_image_url: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop",
-      registration_link: null
+      registration_link: null,
+      brochure_link: "https://example.com/warp-intra-23-brochure.pdf"
     },
     {
       id: '5',
@@ -88,7 +92,8 @@ const Events = () => {
       max_participants: 200,
       current_participants: 185,
       featured_image_url: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600&h=300&fit=crop",
-      registration_link: null
+      registration_link: null,
+      brochure_link: "https://example.com/warp-inter-23-brochure.pdf"
     },
     {
       id: '6',
@@ -101,7 +106,8 @@ const Events = () => {
       max_participants: 120,
       current_participants: 115,
       featured_image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
-      registration_link: null
+      registration_link: null,
+      brochure_link: "https://example.com/warp-intra-22-brochure.pdf"
     },
     {
       id: '7',
@@ -114,7 +120,8 @@ const Events = () => {
       max_participants: 180,
       current_participants: 167,
       featured_image_url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
-      registration_link: null
+      registration_link: null,
+      brochure_link: "https://example.com/warp-inter-22-brochure.pdf"
     }
   ];
 
@@ -174,7 +181,7 @@ const Events = () => {
               {upcomingEvents.map((event) => (
                 <Card 
                   key={event.id} 
-                  className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden flex flex-col h-[500px]"
+                  className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden flex flex-col h-[550px]"
                 >
                   <div className="relative h-48 flex-shrink-0">
                     <img 
@@ -190,13 +197,13 @@ const Events = () => {
                   </div>
 
                   <div className="flex flex-col flex-1 p-6">
-                    <CardHeader className="pb-2 px-0">
+                    <CardHeader className="pb-3 px-0">
                       <CardTitle className="text-xl font-orbitron text-primary line-clamp-1">
                         {event.title}
                       </CardTitle>
                     </CardHeader>
 
-                    <CardContent className="space-y-3 flex-1 flex flex-col px-0">
+                    <CardContent className="space-y-4 flex-1 flex flex-col px-0">
                       <div className="h-12 flex-shrink-0">
                         <p className="text-foreground/80 font-fira text-sm line-clamp-2">
                           {event.description}
@@ -232,10 +239,24 @@ const Events = () => {
                         />
                       </div>
 
-                      <div className="mt-auto">
-                        <Button className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira">
-                          Register Now
-                        </Button>
+                      <div className="mt-auto space-y-2">
+                        {event.registration_link && (
+                          <Button 
+                            className="w-full bg-primary hover:bg-primary/80 text-primary-foreground font-fira"
+                            onClick={() => window.open(event.registration_link, '_blank')}
+                          >
+                            Register Now
+                          </Button>
+                        )}
+                        {event.brochure_link && (
+                          <Button 
+                            variant="outline"
+                            className="w-full border-secondary text-secondary hover:bg-secondary/10 font-fira"
+                            onClick={() => window.open(event.brochure_link, '_blank')}
+                          >
+                            View Brochure
+                          </Button>
+                        )}
                       </div>
                     </CardContent>
                   </div>
@@ -264,7 +285,7 @@ const Events = () => {
               {pastEvents.map((event) => (
                 <Card 
                   key={event.id} 
-                  className="bg-card/30 border-muted/30 hover:border-muted/50 transition-all duration-300 overflow-hidden opacity-80 flex flex-col h-[400px]"
+                  className="bg-card/30 border-muted/30 hover:border-muted/50 transition-all duration-300 overflow-hidden opacity-80 flex flex-col h-[450px]"
                 >
                   <div className="relative h-48 flex-shrink-0">
                     <img 
@@ -280,13 +301,13 @@ const Events = () => {
                   </div>
 
                   <div className="flex flex-col flex-1 p-6">
-                    <CardHeader className="pb-2 px-0">
+                    <CardHeader className="pb-3 px-0">
                       <CardTitle className="text-lg font-orbitron text-muted-foreground line-clamp-1">
                         {event.title}
                       </CardTitle>
                     </CardHeader>
 
-                    <CardContent className="space-y-3 flex-1 px-0">
+                    <CardContent className="space-y-4 flex-1 px-0">
                       <div className="h-12">
                         <p className="text-muted-foreground font-fira text-sm line-clamp-2">
                           {event.description}
@@ -316,6 +337,18 @@ const Events = () => {
                             {tag}
                           </Badge>
                         ))}
+                      </div>
+
+                      <div className="mt-auto">
+                        {event.brochure_link && (
+                          <Button 
+                            variant="outline"
+                            className="w-full border-muted/30 text-muted-foreground hover:bg-muted/10 font-fira"
+                            onClick={() => window.open(event.brochure_link, '_blank')}
+                          >
+                            View Brochure
+                          </Button>
+                        )}
                       </div>
                     </CardContent>
                   </div>

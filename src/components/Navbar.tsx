@@ -1,224 +1,218 @@
-
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Menu, X, Sun, Moon, User, LogOut, Shield } from 'lucide-react';
-import { useTheme } from '@/contexts/ThemeContext';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from "@/components/ui/button"
 import { useAuth } from '@/contexts/AuthContext';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { ChevronDown } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
-  const { user, profile, signOut, isAdmin } = useAuth();
+  const { user, isAdmin, signOut } = useAuth();
+  const navigate = useNavigate();
 
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Members', href: '/members' },
-    { name: 'Events', href: '/events' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Feedbacks', href: '/feedbacks' },
-    { name: 'Contact', href: '/contact' }
+  const navItems = [
+    { name: "Home", href: "/" },
+    { name: "Events", href: "/events" },
+    { name: "Blog", href: "/blog" },
+    { name: "Members", href: "/members" },
+    { name: "Contact", href: "/contact" },
   ];
 
+  const adminItems = [
+    { name: "Blog Admin", href: "/blog-admin" },
+    { name: "Events Admin", href: "/events-admin" },
+    { name: "Feedbacks", href: "/feedbacks" },
+  ];
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
+    await signOut();
+    navigate('/auth');
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur-md border-b border-primary/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+      <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <img 
-              src="./WarP Computer Club Logo.png" 
-              alt="The Computer Club" 
-              className={`h-8 md:h-10 transition-all duration-300 ${
-                theme === 'light' ? 'logo-glow-light' : ''
-              }`}
-            />
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="relative">
+              <img 
+                src="/WarP Icon.png" 
+                alt="WarP Logo" 
+                className="h-10 w-10 transition-transform group-hover:scale-110"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-orbitron font-bold text-lg text-primary group-hover:text-primary/80 transition-colors">
+                WarP
+              </span>
+              <span className="font-fira text-xs text-muted-foreground -mt-1">
+                Computer Club
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) => (
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
               <Link
-                key={link.name}
-                to={link.href}
-                className="text-foreground/80 hover:text-primary transition-colors font-fira text-sm tracking-wider"
+                key={item.name}
+                to={item.href}
+                className="font-fira text-sm text-foreground/80 hover:text-primary transition-colors duration-200 hover:scale-105 transform"
               >
-                {link.name}
+                {item.name}
               </Link>
             ))}
             
-            {/* Theme Toggle */}
-            <div className="flex items-center space-x-2 bg-muted/50 rounded-full p-1 border border-border">
-              <Sun size={16} className={`transition-colors ${theme === 'light' ? 'text-primary' : 'text-muted-foreground'}`} />
-              <Switch
-                checked={theme === 'dark'}
-                onCheckedChange={toggleTheme}
-                className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted"
-              />
-              <Moon size={16} className={`transition-colors ${theme === 'dark' ? 'text-primary' : 'text-muted-foreground'}`} />
-            </div>
+            {user && isAdmin() && (
+              <div className="relative group">
+                <button className="font-fira text-sm text-foreground/80 hover:text-primary transition-colors duration-200 flex items-center">
+                  Admin
+                  <ChevronDown className="ml-1 h-3 w-3" />
+                </button>
+                <div className="absolute top-full left-0 mt-2 w-48 bg-background/95 backdrop-blur-md border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  {adminItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="block px-4 py-2 font-fira text-sm text-foreground/80 hover:text-primary hover:bg-primary/10 transition-colors duration-200"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
 
-            {/* Auth Controls */}
             {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="flex items-center gap-2">
-                    <User size={16} />
-                    <span className="font-fira text-sm">{profile?.email?.split('@')[0] || 'User'}</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem className="font-fira">
-                    <User size={16} className="mr-2" />
-                    Profile
-                  </DropdownMenuItem>
-                  {isAdmin() && (
-                    <>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem asChild className="font-fira">
-                        <Link to="/admin/blog">
-                          <Shield size={16} className="mr-2" />
-                          Admin Panel
-                        </Link>
-                      </DropdownMenuItem>
-                    </>
-                  )}
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut} className="font-fira text-destructive">
-                    <LogOut size={16} className="mr-2" />
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="flex items-center space-x-4">
+                <span className="font-fira text-sm text-muted-foreground">
+                  {user.email}
+                </span>
+                <Button
+                  onClick={handleSignOut}
+                  variant="outline"
+                  size="sm"
+                  className="font-fira"
+                >
+                  Sign Out
+                </Button>
+              </div>
             ) : (
-              <Button asChild variant="outline" size="sm" className="font-fira">
-                <Link to="/auth">Sign In</Link>
+              <Button
+                onClick={() => navigate('/auth')}
+                className="font-fira bg-primary hover:bg-primary/80"
+                size="sm"
+              >
+                Sign In
               </Button>
             )}
           </div>
 
-          {/* Mobile/Tablet Controls */}
-          <div className="lg:hidden flex items-center space-x-2">
-            {/* Theme Toggle for smaller screens */}
-            <div className="hidden sm:flex items-center space-x-1 bg-muted/50 rounded-full p-1 border border-border">
-              <Sun size={14} className={`transition-colors ${theme === 'light' ? 'text-primary' : 'text-muted-foreground'}`} />
-              <Switch
-                checked={theme === 'dark'}
-                onCheckedChange={toggleTheme}
-                className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted scale-75"
-              />
-              <Moon size={14} className={`transition-colors ${theme === 'dark' ? 'text-primary' : 'text-muted-foreground'}`} />
-            </div>
-            
-            {/* Hamburger Menu Button */}
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsOpen(!isOpen)}
-                className="text-primary p-2"
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <Button variant="ghost" size="icon" onClick={toggleMenu}>
+              {isOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              )}
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-background/90 backdrop-blur-md border-b border-border">
+          <div className="container mx-auto px-4 py-6 flex flex-col space-y-4">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="font-fira text-sm text-foreground/80 hover:text-primary transition-colors duration-200 block py-2"
+                onClick={() => setIsOpen(false)}
               >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </Button>
+                {item.name}
+              </Link>
+            ))}
 
-              {/* Mobile Navigation Menu - Top Right Dropdown */}
-              {isOpen && (
-                <div className="absolute right-0 top-12 w-64 bg-card/95 backdrop-blur-sm border border-primary/20 rounded-lg shadow-lg z-50">
-                  <div className="p-4">
-                    {/* Theme toggle for mobile (only visible on very small screens) */}
-                    <div className="sm:hidden flex items-center justify-between mb-4 pb-3 border-b border-border/50">
-                      <span className="text-sm font-fira text-foreground/80">Theme</span>
-                      <div className="flex items-center space-x-1 bg-muted/50 rounded-full p-1 border border-border">
-                        <Sun size={14} className={`transition-colors ${theme === 'light' ? 'text-primary' : 'text-muted-foreground'}`} />
-                        <Switch
-                          checked={theme === 'dark'}
-                          onCheckedChange={toggleTheme}
-                          className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted scale-75"
-                        />
-                        <Moon size={14} className={`transition-colors ${theme === 'dark' ? 'text-primary' : 'text-muted-foreground'}`} />
-                      </div>
-                    </div>
+            {user && isAdmin() && (
+              <div className="border-t border-border pt-4">
+                <span className="font-fira text-xs text-muted-foreground block mb-2">
+                  Admin Panel
+                </span>
+                {adminItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="font-fira text-sm text-foreground/80 hover:text-primary transition-colors duration-200 block py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
 
-                    {/* Navigation Links */}
-                    <div className="space-y-2 mb-4">
-                      {navLinks.map((link) => (
-                        <Link
-                          key={link.name}
-                          to={link.href}
-                          className="block text-foreground/80 hover:text-primary transition-colors font-fira text-base tracking-wider py-2 px-2 rounded hover:bg-muted/50"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {link.name}
-                        </Link>
-                      ))}
-                    </div>
-                    
-                    {/* Auth Section */}
-                    {user ? (
-                      <div className="border-t border-border pt-4">
-                        <p className="text-sm font-fira text-muted-foreground mb-3">
-                          Signed in as: {profile?.email}
-                        </p>
-                        <div className="space-y-2">
-                          <button className="block w-full text-left py-2 px-2 text-sm font-fira text-foreground/80 hover:text-primary transition-colors rounded hover:bg-muted/50">
-                            <User size={16} className="inline mr-2" />
-                            Profile
-                          </button>
-                          {isAdmin() && (
-                            <Link
-                              to="/admin/blog"
-                              className="block py-2 px-2 text-sm font-fira text-foreground/80 hover:text-primary transition-colors rounded hover:bg-muted/50"
-                              onClick={() => setIsOpen(false)}
-                            >
-                              <Shield size={16} className="inline mr-2" />
-                              Admin Panel
-                            </Link>
-                          )}
-                          <button
-                            onClick={() => {
-                              handleSignOut();
-                              setIsOpen(false);
-                            }}
-                            className="block w-full text-left py-2 px-2 text-sm font-fira text-destructive hover:text-destructive/80 transition-colors rounded hover:bg-muted/50"
-                          >
-                            <LogOut size={16} className="inline mr-2" />
-                            Sign Out
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="border-t border-border pt-4">
-                        <Link
-                          to="/auth"
-                          className="block text-center py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/80 transition-colors font-fira text-sm"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Sign In
-                        </Link>
-                      </div>
-                    )}
-                  </div>
+            <div className="border-t border-border pt-4">
+              {user ? (
+                <div className="flex flex-col space-y-2">
+                  <span className="font-fira text-sm text-muted-foreground">
+                    {user.email}
+                  </span>
+                  <Button
+                    onClick={handleSignOut}
+                    variant="outline"
+                    size="sm"
+                    className="font-fira w-full"
+                  >
+                    Sign Out
+                  </Button>
                 </div>
+              ) : (
+                <Button
+                  onClick={() => {
+                    navigate('/auth');
+                    setIsOpen(false);
+                  }}
+                  className="font-fira bg-primary hover:bg-primary/80 w-full"
+                  size="sm"
+                >
+                  Sign In
+                </Button>
               )}
             </div>
           </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };
