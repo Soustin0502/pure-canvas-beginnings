@@ -21,45 +21,45 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <AuthProvider>
-      <div className="min-h-screen bg-background text-foreground">
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route 
-            path="/blog/admin" 
-            element={
-              <ProtectedRoute>
-                <BlogAdmin />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/blog/form" 
-            element={
-              <ProtectedRoute>
-                <BlogForm />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/events" element={<Events />} />
-          <Route 
-            path="/events/admin" 
-            element={
-              <ProtectedRoute>
-                <EventsAdmin />
-              </ProtectedRoute>
-            } 
-          />
-          <Route path="/feedbacks" element={<Feedbacks />} />
-          <Route path="/members" element={<Members />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Toaster />
-      </div>
-    </AuthProvider>
+    // <AuthProvider>
+    <div className="min-h-screen bg-background text-foreground">
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route 
+          path="/blog/admin" 
+          element={
+            <ProtectedRoute>
+              <BlogAdmin />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/blog/form" 
+          element={
+            <ProtectedRoute>
+              <BlogForm />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/events" element={<Events />} />
+        <Route 
+          path="/events/admin" 
+          element={
+            <ProtectedRoute>
+              <EventsAdmin />
+            </ProtectedRoute>
+          } 
+        />
+        <Route path="/feedbacks" element={<Feedbacks />} />
+        <Route path="/members" element={<Members />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Toaster />
+    </div>
+    // </AuthProvider>
   );
 }
 
