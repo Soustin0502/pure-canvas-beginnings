@@ -11,7 +11,6 @@ const Members = () => {
   const [titleRef, titleVisible] = useScrollAnimation();
   const [membersHeaderRef, membersHeaderVisible] = useScrollAnimation();
   const [membersRef, membersVisible] = useScrollAnimation();
-  const [heroStatsRef, heroStatsVisible] = useScrollAnimation();
 
   const getInitials = (name: string) => {
     return name
@@ -145,46 +144,6 @@ const Members = () => {
               Meet the brilliant minds driving innovation at WarP Computer Club
             </p>
           </div>
-
-          {/* Hero Stats Cards */}
-          <div 
-            ref={heroStatsRef}
-            className={`grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8 stagger-children ${heroStatsVisible ? 'animate' : ''}`}
-          >
-            <Card className="bg-card/30 cyber-border hover:border-primary/60 transition-all duration-300">
-              <CardHeader className="text-center pb-3">
-                <div className="flex items-center justify-center mb-2">
-                  <Users className="text-primary" size={32} />
-                </div>
-                <CardTitle className="text-2xl font-orbitron font-bold text-primary">
-                  {members.length}
-                </CardTitle>
-                <p className="text-muted-foreground font-fira text-sm">Active Members</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center font-fira text-sm text-foreground/80">
-                  Dedicated individuals working together to push the boundaries of technology and innovation.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-card/30 cyber-border hover:border-secondary/60 transition-all duration-300">
-              <CardHeader className="text-center pb-3">
-                <div className="flex items-center justify-center mb-2">
-                  <Trophy className="text-secondary" size={32} />
-                </div>
-                <CardTitle className="text-2xl font-orbitron font-bold text-secondary">
-                  5+
-                </CardTitle>
-                <p className="text-muted-foreground font-fira text-sm">Years Legacy</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center font-fira text-sm text-foreground/80">
-                  Building a strong foundation of technological excellence and community engagement since our inception.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
         </div>
 
         <button 
@@ -211,76 +170,78 @@ const Members = () => {
           </div>
 
           {/* Members Grid */}
-          <div 
-            ref={membersRef}
-            className={`grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 stagger-children ${membersVisible ? 'animate' : ''}`}
-          >
-            {members.map((member, index) => (
-              <Card 
-                key={member.id} 
-                className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden transform hover:scale-105 member-card"
-                style={{
-                  animationDelay: `${index * 0.1}s`
-                }}
-              >
-                <div className="relative">
-                  <div className="w-full h-64 overflow-hidden">
-                    <Avatar className="w-full h-full rounded-none">
-                      <AvatarImage 
-                        src={member.image} 
-                        alt={member.name} 
-                        className="object-cover w-full h-full member-image" 
-                      />
-                      <AvatarFallback className="bg-primary/20 text-primary font-bold text-2xl rounded-none w-full h-full flex items-center justify-center">
-                        {getInitials(member.name)}
-                      </AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-24 member-fade"></div>
-                </div>
-                
-                <CardContent className="p-6 relative">
-                  <h3 className="text-xl font-orbitron font-semibold text-primary mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-secondary font-fira text-sm mb-1">{member.role}</p>
-                  <p className="text-muted-foreground font-fira text-xs mb-4">{member.year}</p>
-                  
-                  <p className="text-foreground/80 font-fira text-sm mb-4 line-clamp-3">
-                    {member.bio}
-                  </p>
-                  
-                  <div className="mb-4">
-                    <SkillsDisplay skills={member.skills} maxVisible={2} />
+          <div className="flex justify-center">
+            <div 
+              ref={membersRef}
+              className={`grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl w-full stagger-children ${membersVisible ? 'animate' : ''}`}
+            >
+              {members.map((member, index) => (
+                <Card 
+                  key={member.id} 
+                  className="bg-card/50 cyber-border hover:border-primary/60 transition-all duration-300 overflow-hidden transform hover:scale-105 member-card"
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  <div className="relative">
+                    <div className="w-full h-64 overflow-hidden">
+                      <Avatar className="w-full h-full rounded-none">
+                        <AvatarImage 
+                          src={member.image} 
+                          alt={member.name} 
+                          className="object-cover w-full h-full member-image" 
+                        />
+                        <AvatarFallback className="bg-primary/20 text-primary font-bold text-2xl rounded-none w-full h-full flex items-center justify-center">
+                          {getInitials(member.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 h-24 member-fade"></div>
                   </div>
                   
-                  <div className="flex gap-3">
-                    <a 
-                      href={`https://github.com/${member.github}`}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github size={16} />
-                    </a>
-                    <a 
-                      href={`https://linkedin.com/in/${member.linkedin}`}
-                      className="text-muted-foreground hover:text-secondary transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Linkedin size={16} />
-                    </a>
-                    <a 
-                      href={`mailto:${member.email}`}
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      <Mail size={16} />
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <CardContent className="p-6 relative">
+                    <h3 className="text-xl font-orbitron font-semibold text-primary mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-secondary font-fira text-sm mb-1">{member.role}</p>
+                    <p className="text-muted-foreground font-fira text-xs mb-4">{member.year}</p>
+                    
+                    <p className="text-foreground/80 font-fira text-sm mb-4 line-clamp-3">
+                      {member.bio}
+                    </p>
+                    
+                    <div className="mb-4">
+                      <SkillsDisplay skills={member.skills} maxVisible={2} />
+                    </div>
+                    
+                    <div className="flex gap-3">
+                      <a 
+                        href={`https://github.com/${member.github}`}
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github size={16} />
+                      </a>
+                      <a 
+                        href={`https://linkedin.com/in/${member.linkedin}`}
+                        className="text-muted-foreground hover:text-secondary transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Linkedin size={16} />
+                      </a>
+                      <a 
+                        href={`mailto:${member.email}`}
+                        className="text-muted-foreground hover:text-accent transition-colors"
+                      >
+                        <Mail size={16} />
+                      </a>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
