@@ -1,3 +1,4 @@
+
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
@@ -15,6 +16,7 @@ import EventsAdmin from './pages/EventsAdmin';
 import Feedbacks from './pages/Feedbacks';
 import Members from './pages/Members';
 import NotFound from './pages/NotFound';
+import AdminPanel from './pages/AdminPanel';
 
 // Import any protected route component if you're using one
 import ProtectedRoute from './components/ProtectedRoute';
@@ -56,6 +58,14 @@ function App() {
             />
             <Route path="/feedbacks" element={<Feedbacks />} />
             <Route path="/members" element={<Members />} />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <AdminPanel />
+                </ProtectedRoute>
+              } 
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Toaster />
