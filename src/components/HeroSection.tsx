@@ -11,7 +11,6 @@ gsap.registerPlugin(TextPlugin);
 
 const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [logoPosition, setLogoPosition] = useState({ x: 0, y: 0 });
 
   // GSAP Timeline for entrance animations
   const createEntranceTimeline = () => {
@@ -71,7 +70,7 @@ const HeroSection = () => {
 
   const timeline = useGSAPTimeline(createEntranceTimeline, []);
 
-  // Enhanced logo hover animation
+  // Enhanced 3D logo hover animation
   const logoRef = useGSAPAnimation<HTMLDivElement>((element) => {
     const handleMouseMove = (e: MouseEvent) => {
       const rect = element.getBoundingClientRect();
@@ -81,28 +80,34 @@ const HeroSection = () => {
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
       
-      const maxDistance = 30;
-      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      const maxRotation = 15;
+      const maxTranslation = 10;
       
-      if (distance > 0) {
-        const normalizedX = deltaX / distance;
-        const normalizedY = deltaY / distance;
-        
-        const moveDistance = Math.min(distance * 0.4, maxDistance);
-        
-        gsap.to(element.querySelector('.hero-logo'), {
-          x: -normalizedX * moveDistance,
-          y: -normalizedY * moveDistance,
-          duration: 0.6,
-          ease: "power2.out"
-        });
-      }
+      const rotationY = (deltaX / rect.width) * maxRotation;
+      const rotationX = -(deltaY / rect.height) * maxRotation;
+      const translateX = (deltaX / rect.width) * maxTranslation;
+      const translateY = (deltaY / rect.height) * maxTranslation;
+      
+      gsap.to(element.querySelector('.hero-logo'), {
+        rotationY: rotationY,
+        rotationX: rotationX,
+        x: translateX,
+        y: translateY,
+        z: 50,
+        duration: 0.3,
+        ease: "power2.out",
+        transformPerspective: 1000,
+        transformOrigin: "center center"
+      });
     };
 
     const handleMouseLeave = () => {
       gsap.to(element.querySelector('.hero-logo'), {
+        rotationY: 0,
+        rotationX: 0,
         x: 0,
         y: 0,
+        z: 0,
         duration: 0.8,
         ease: "elastic.out(1, 0.3)"
       });
@@ -194,11 +199,13 @@ const HeroSection = () => {
           <div 
             ref={logoRef}
             className="mb-6 inline-block relative"
+            style={{ perspective: '1000px' }}
           >
             <img 
               src="./WARP TEXT HORIZ.png" 
               alt="WarP Logo" 
               className="hero-logo h-24 md:h-32 mx-auto transition-transform duration-300 ease-out relative z-0"
+              style={{ transformStyle: 'preserve-3d' }}
             />
           </div>
           
